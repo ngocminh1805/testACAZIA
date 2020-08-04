@@ -67,40 +67,47 @@ public class Login extends AppCompatActivity {
                email = Email.getText().toString().trim();
                password =  Password.getText().toString().trim();
 
-               String _name ="",_email = "", _password = "";
+               if(email.length()!= 0 && password.length()!= 0){
+                   String _name ="",_email = "", _password = "";
 
-                Cursor data = dataBase.GetData("SELECT * FROM User WHERE userEmail ='" + email + "'");
-                while (data.moveToNext()){
-                    _name = data.getString(1);
-                    _email = data.getString(2);
-                    _password = data.getString(3);
-                }
+                   Cursor data = dataBase.GetData("SELECT * FROM User WHERE userEmail ='" + email + "'");
+                   while (data.moveToNext()){
+                       _name = data.getString(1);
+                       _email = data.getString(2);
+                       _password = data.getString(3);
+                   }
 
-                if(_email.equals(email) == true && _password.equals(password) == true){
+                   if(_email.equals(email) == true && _password.equals(password) == true){
 
-                    if(Remember.isChecked()){
-                        loginPrefesEditor.putBoolean("saveLogin",true);
-                        loginPrefesEditor.putString("email",email);
-                        loginPrefesEditor.putString("password",password);
-                        loginPrefesEditor.commit();
-                    }
+                       if(Remember.isChecked()){
+                           loginPrefesEditor.putBoolean("saveLogin",true);
+                           loginPrefesEditor.putString("email",email);
+                           loginPrefesEditor.putString("password",password);
+                           loginPrefesEditor.commit();
+                       }
 
-                    else {
-                        loginPrefesEditor.clear();
-                        loginPrefesEditor.commit();
-                    }
+                       else {
+                           loginPrefesEditor.clear();
+                           loginPrefesEditor.commit();
+                           loginPrefesEditor.putBoolean("saveLogin",false);
+                       }
 
-                    Intent home = new Intent(Login.this, Home.class);
-                    home.putExtra("userName",_name);
-                    startActivity(home);
-                }
-                else {
-                    Toast.makeText(Login.this, "Email hoặc mật khẩu không đúng", Toast.LENGTH_SHORT).show();
-                    Email.setText("");
-                    Password.setText("");
+                       Intent home = new Intent(Login.this, Home.class);
+                       home.putExtra("userName",_name);
+                       startActivity(home);
+                   }
+                   else {
+                       Toast.makeText(Login.this, "Email hoặc mật khẩu không đúng", Toast.LENGTH_SHORT).show();
+                       Password.setText("");
 
 
-                }
+                   }
+               }
+               else {
+                   Toast.makeText(Login.this, "Vui lòng nhập đủ thông tin", Toast.LENGTH_SHORT).show();
+               }
+
+
 
 
 
