@@ -96,6 +96,8 @@ public class Login extends AppCompatActivity {
                 }
                 else {
                     Toast.makeText(Login.this, "Email hoặc mật khẩu không đúng", Toast.LENGTH_SHORT).show();
+                    Email.setText("");
+                    Password.setText("");
 
 
                 }

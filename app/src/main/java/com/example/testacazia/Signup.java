@@ -2,11 +2,13 @@ package com.example.testacazia;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.regex.Matcher;
@@ -19,6 +21,7 @@ public class Signup extends AppCompatActivity {
     Button signupBtn;
     String name,email,password;
     DataBase dataBase;
+    TextView login;
 
 
     @Override
@@ -31,6 +34,7 @@ public class Signup extends AppCompatActivity {
         Email = findViewById(R.id.Emailedt);
         Password = findViewById(R.id.PassWordedt);
         signupBtn = findViewById(R.id.btnSignUp);
+        login = findViewById(R.id.Btnlogin);
 
 
 
@@ -54,6 +58,11 @@ public class Signup extends AppCompatActivity {
                         if(validatePassword(password)){
                             dataBase.QueryData("INSERT INTO User VALUES(null,'" + name + "','" + email + "','" + password + "')");
                             Toast.makeText(Signup.this, "Tạo tài khoản thành công",Toast.LENGTH_SHORT).show();
+                            Name.setText("");
+                            Email.setText("");
+                            Password.setText("");
+
+
                         }
                         else {
                             Toast.makeText(Signup.this, "Mật khẩu không hợp lệ", Toast.LENGTH_SHORT).show();
@@ -68,6 +77,13 @@ public class Signup extends AppCompatActivity {
                 }
 
 
+            }
+        });
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent login = new Intent(Signup.this,Login.class);
+                startActivity(login);
             }
         });
     }
